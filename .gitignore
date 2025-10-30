@@ -1,0 +1,13 @@
+# data
+data/
+datasets/
+*.csv
+*.zip
+*.jpg
+*.png
+*.env
+
+# local
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
