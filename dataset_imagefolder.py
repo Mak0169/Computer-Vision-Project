@@ -12,3 +12,11 @@ dst_root = Path(os.getenv("DIR"))
 
 df = pd.read_csv(csv_file)
 print(df.head())
+
+for _, row in df.iterrows():
+    img_path = src_root / row['filepath']
+    label = row['label']
+    dst_dir = dst_root / label
+    dst_dir.mkdir(parents=True, exist_ok=True)
+    dst_path = dst_dir / img_path.name
+    shutil.copy(img_path, dst_path)
