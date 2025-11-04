@@ -10,6 +10,12 @@ csv_file = Path(os.getenv("CSV_FILE"))
 src_root = Path(os.getenv("DATA_ROOT"))
 dst_root = Path(os.getenv("DIR"))
 
+if not csv_file or not csv_file.exists():
+    raise FileNotFoundError("CSV file not found")
+if not src_root or not src_root.exists():
+    raise FileNotFoundError("Source data root not found")
+dst_root.mkdir(parents=True, exist_ok=True)
+
 df = pd.read_csv(csv_file)
 print(df.head())
 
