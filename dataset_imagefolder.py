@@ -8,7 +8,7 @@ from tqdm import tqdm
 load_dotenv()
 csv_file = Path(os.getenv("CSV_FILE"))
 src_root = Path(os.getenv("DATA_ROOT"))
-dst_root = Path(os.getenv("DIR"))
+dst_root = Path(os.getenv("OUT_DIR"))
 
 if not csv_file or not csv_file.exists():
     raise FileNotFoundError("CSV file not found")
@@ -19,9 +19,9 @@ dst_root.mkdir(parents=True, exist_ok=True)
 df = pd.read_csv(csv_file)
 print(df.head())
 
-for _, row in df.iterrows():
-    img_path = src_root / row['filepath']
-    label = row['label']
+for _, row in tqdm(df.iterrows(), total=len(df), desc="Copying images"):
+    img_path = src_root / row['Image name']
+    label = str(row['Retinopathy grade'])
     dst_dir = dst_root / label
     dst_dir.mkdir(parents=True, exist_ok=True)
     dst_path = dst_dir / img_path.name
